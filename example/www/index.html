@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Submitto Example</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    <style>
+        body{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submitto Examples</h1>
+    <form action="api/articles" method="GET" id="load-articles">
+        <button class="submit">Load Articles</button>
+    </form>
+    <ul id="all-articles"></ul>
+    <form action="api/articles" method="GET" id="hello">
+        <button class="submit">Load Articles</button>
+    </form>
+    <ul id="all-articles"></ul>
+    <hr>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <script src='js/submitto.min.js'></script>
+    <script>
+        $(function(){
+            //LOAD ALL ARTICLES
+            Submitto.registerFormCallback('load-articles', 'success', (data, textStatus, jqXHR) => {
+                $("#all-articles").empty();
+                data.forEach(element => {
+                    $("#all-articles").append('<li>'+element.name+' ('+element.price+' €)</li>');
+                });
+                console.log(data);
+                console.log(textStatus);
+                console.log(jqXHR);
+            });
+            
+            Submitto.registerAjaxCallback('success', (data, textStatus, jqXHR) => {
+                console.log("ALLWAYS SUCCESS!!!");
+            });
+
+            
+        });
+    </script>
+</body>
+</html>
